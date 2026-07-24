@@ -4,12 +4,15 @@ import { checkQueue } from "../queues/checkQueue.js";
 export async function runSchedulerOnce() {
   const now = new Date();
 
+    console.log("Scheduler se pokrenuo:", new Date().toISOString()); 
+
   const monitor = await Monitor.findOne({
     active: true,
     nextRunAt: { $lte: now },
     status: { $nin: ["queued", "checking"] },
   }).sort({ nextRunAt: 1 });
 
+   console.log("Scheduler pronašao:", monitor?._id?.toString() || null);
   if (!monitor) {
     console.log("Scheduler: nema monitora za proveru.");
     return;

@@ -31,7 +31,7 @@ const monitorSchema= new mongoose.Schema({
         type:baseLineSchema,
         
     },
-    ownerId:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},
+    ownerId:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:false},
      intervalMinutes: {
       type: Number,
       required: true,

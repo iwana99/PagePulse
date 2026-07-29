@@ -8,3 +8,9 @@ export const checkQueue = new Queue("checks", {  //napravila sam red poslova koj
     url: process.env.REDIS_URL,
   },
 });
+
+export const notificationQueue = new Queue("notifications", {
+  connection: {
+    url: process.env.REDIS_URL,
+  },
+});

@@ -23,10 +23,12 @@ const monitorSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-    notifications:{
-        type:notificationSchema,
-        default:{}
-    },
+    notifications: {
+  type: notificationSchema,
+ default: () => ({
+    emailEnabled: false,
+  }),
+},
     baseline:{
         type:baseLineSchema,
         
@@ -46,7 +48,7 @@ const monitorSchema= new mongoose.Schema({
 
     status: {
       type: String,
-      enum: ["new", "queued", "checking", "ok", "error", "paused"],
+      enum: ["new", "queued", "checking", "ok", "error", "paused","changed"],
       default: "new",
     },
 
@@ -55,6 +57,23 @@ const monitorSchema= new mongoose.Schema({
       required: true,
       default: Date.now,
     },
+    lastRunAt: { //kada je poslednji put proveravao monitor, belezi se 
+      type: Date,
+      
+      default: null,
+    },
+    thresholdPercent: {  //Koliko promena mora biti velika da bi je korisnik smatrao važnom?
+      type: Number,
+      
+      default: 5,
+      min: 1,
+      max: 100,
+    },
+    lastChangeAt : { //kada je poslednji put desila promena
+      type: Date,
+      
+      default: null,
+    }
 },{timestamps:true})
 
  const Monitor= mongoose.models.Monitor || mongoose.model("Monitor",monitorSchema);

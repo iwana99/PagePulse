@@ -28,6 +28,12 @@ export async function runSchedulerOnce() {
 
   await checkQueue.add("check-monitor", {
     monitorId: monitor.id,
+  }, {
+    attempts: 3,
+    backoff: {
+      type: "exponential",
+      delay: 5000,
+    },
   });
 
   console.log(

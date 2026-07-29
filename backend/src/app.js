@@ -9,8 +9,14 @@ import {UploadRoute} from "../src/routes/UploadRoute.js";
 export const app=express();
 
 app.use(helmet({crossOriginResourcePolicy:{policy:"cross-origin"}}))
+
+
+const corsOrigin = [
+  "http://localhost:5173",
+];
 app.use(cors({origin(origin,callback){
-    if(!origin || !corsOrigin.includes(origin)) return callback(null,true)
+    if(!origin || corsOrigin.includes(origin)) 
+        return callback(null,true)
 },credentials:true}))
 
 app.use(clerkMiddleware())

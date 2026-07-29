@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 import { connectRedis } from "../src/conf/redis.js";
 import {getRedisClient} from "../src/conf/redis.js";
 import {cloudinaryConnect} from '../src/conf/cloudinary.js'
-
+import { runSchedulerOnce } from "./scheduler/scheduler.js";
 dotenv.config()
 
 async function startServer(){
